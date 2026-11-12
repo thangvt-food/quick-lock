@@ -73,7 +73,7 @@ if printf '%s\n' "$PERMS" | grep -q -x -F "$ALLOWED_SELF_PERMISSION"; then
   echo "  declaration:"
   printf '%s\n' "$TREE" | grep -A4 -F "\"$ALLOWED_SELF_PERMISSION\"" | sed 's/^/    /' || true
   printf '%s\n' "$TREE" | grep -A4 -F "$ALLOWED_SELF_PERMISSION" \
-    | grep -F "protectionLevel" | grep -Eq "0x2|signature" \
+    | grep -F "protectionLevel" | grep -Eq "0x0*2|signature" \
     || fail "$ALLOWED_SELF_PERMISSION must be signature-level (protectionLevel)"
   ok "only the signature-level AndroidX broadcast guard is declared"
 else

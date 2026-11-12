@@ -45,7 +45,6 @@ jobs:
         run: bash scripts/verify-apk.sh app/build/outputs/apk/debug/app-debug.apk
 
       - name: Run Android lint
-        continue-on-error: true
         run: ./gradlew --no-daemon lintDebug
 
       - name: Upload lint report

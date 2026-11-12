@@ -75,11 +75,17 @@ jobs:
         with:
           name: quicklock-debug-apk
 
-      - name: Create release
+      - name: Create or update release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "$GITHUB_REF_NAME" app-debug.apk \
-            --repo "$GITHUB_REPOSITORY" \
-            --title "QuickLock $GITHUB_REF_NAME" \
-            --notes "Debug APK built from commit $GITHUB_SHA. Signed with the public debug key committed in this repository, so it updates over previous builds."
+          set -euo pipefail
+          notes="Debug APK built from commit $GITHUB_SHA. Signed with the public debug key committed in this repository, so it updates over previous builds."
+          if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" > /dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" app-debug.apk --clobber --repo "$GITHUB_REPOSITORY"
+          else
+            gh release create "$GITHUB_REF_NAME" app-debug.apk \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "QuickLock $GITHUB_REF_NAME" \
+              --notes "$notes"
+          fi

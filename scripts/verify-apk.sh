@@ -72,11 +72,22 @@ for needle in \
 done
 ok "activities, alias and accessibility service are wired"
 
-# The accessibility service must not request event types or window content.
-if printf '%s' "$TREE" | grep -qF "accessibilityEventTypes"; then
-  fail "accessibility service declares accessibilityEventTypes"
-fi
-ok "no accessibility event types declared"
+# The accessibility config must not request event types or window content.
+CONFIG_TREE="$("$AAPT2" dump xmltree --file res/xml/accessibility_service_config.xml "$APK")"
+for needle in "accessibilityEventTypes" "canRetrieveWindowContent" "accessibilityFlags"; do
+  if printf '%s' "$CONFIG_TREE" | grep -qF "$needle"; then
+    case "$needle" in
+      canRetrieveWindowContent)
+        printf '%s' "$CONFIG_TREE" | grep -A1 -F "canRetrieveWindowContent" | grep -qF "0x0" \
+          || fail "accessibility service can retrieve window content"
+        ;;
+      *)
+        fail "accessibility config must not declare $needle"
+        ;;
+    esac
+  fi
+done
+ok "accessibility config requests no events, no window content, no extra flags"
 
 echo
 echo "== Signature =="

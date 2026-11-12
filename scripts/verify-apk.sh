@@ -70,8 +70,11 @@ UNEXPECTED="$(printf '%s\n' "$PERMS" | grep -v -x -F "$ALLOWED_SELF_PERMISSION" 
 [ -z "$UNEXPECTED" ] || fail "unexpected permission(s) declared: $(printf '%s' "$UNEXPECTED" | tr '\n' ' ')"
 
 if printf '%s\n' "$PERMS" | grep -q -x -F "$ALLOWED_SELF_PERMISSION"; then
-  printf '%s\n' "$TREE" | grep -A5 -F "\"$ALLOWED_SELF_PERMISSION\"" | grep -F "protectionLevel" | grep -qF "0x2" \
-    || fail "$ALLOWED_SELF_PERMISSION must be declared with protectionLevel=signature (0x2)"
+  echo "  declaration:"
+  printf '%s\n' "$TREE" | grep -A4 -F "\"$ALLOWED_SELF_PERMISSION\"" | sed 's/^/    /' || true
+  printf '%s\n' "$TREE" | grep -A4 -F "$ALLOWED_SELF_PERMISSION" \
+    | grep -F "protectionLevel" | grep -Eq "0x2|signature" \
+    || fail "$ALLOWED_SELF_PERMISSION must be signature-level (protectionLevel)"
   ok "only the signature-level AndroidX broadcast guard is declared"
 else
   ok "no <uses-permission> entries at all"

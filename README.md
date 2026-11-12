@@ -188,7 +188,7 @@ app/src/main/
       Theme.kt
   res/
     drawable/                             # vector icon (sinh từ assets/quicklock.svg)
-    mipmap-anydpi-v26/                    # adaptive icon (2 icon: khóa + settings)
+    mipmap-anydpi/                        # adaptive icon (2 icon: khóa + settings)
     xml/accessibility_service_config.xml
     values/, values-vi/, values-night/
   AndroidManifest.xml

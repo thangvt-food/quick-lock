@@ -32,10 +32,15 @@ echo "size: $(du -h "$APK" | cut -f1)"
 
 BADGING="$("$AAPT2" dump badging "$APK")"
 
+echo
+echo "== aapt2 dump badging =="
+printf '%s\n' "$BADGING"
+echo
+
 PKG="$(printf '%s\n' "$BADGING" | sed -n "s/^package: name='\([^']*\)'.*/\1/p")"
 VERSION_NAME="$(printf '%s\n' "$BADGING" | sed -n "s/.*versionName='\([^']*\)'.*/\1/p" | head -1)"
-MIN_SDK="$(printf '%s\n' "$BADGING" | sed -n "s/^sdkVersion:'\([^']*\)'.*/\1/p")"
-TARGET_SDK="$(printf '%s\n' "$BADGING" | sed -n "s/^targetSdkVersion:'\([^']*\)'.*/\1/p")"
+MIN_SDK="$(printf '%s\n' "$BADGING" | sed -n "s/^\(sdkVersion\|minSdkVersion\):'\([0-9]*\)'.*/\2/p" | head -1)"
+TARGET_SDK="$(printf '%s\n' "$BADGING" | sed -n "s/^targetSdkVersion:'\([0-9]*\)'.*/\1/p" | head -1)"
 
 echo "package: $PKG ($VERSION_NAME)"
 echo "minSdk: $MIN_SDK  targetSdk: $TARGET_SDK"

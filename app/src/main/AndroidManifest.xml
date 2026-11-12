@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        QuickLock declares NO permissions at all.
+        No INTERNET, no storage, no contacts, no location, no QUERY_ALL_PACKAGES.
+        The only privileged capability is the AccessibilityService, which the user
+        grants manually in system settings and can revoke at any time.
+    -->
+
+    <application
+        android:allowBackup="false"
+        android:icon="@mipmap/ic_launcher_settings"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_settings_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.QuickLock">
+
+        <!-- Status / setup screen. Launcher label is "QuickLock Settings". -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_settings"
+            android:label="@string/app_name_settings"
+            android:launchMode="singleTop"
+            android:roundIcon="@mipmap/ic_launcher_settings_round"
+            android:theme="@style/Theme.QuickLock">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--
+            Invisible activity. It is exported so that launcher shortcuts (both the
+            activity-alias below and pinned ShortcutManager shortcuts) can start it.
+            It performs GLOBAL_ACTION_LOCK_SCREEN and finishes; it never shows UI.
+        -->
+        <activity
+            android:name=".LockActivity"
+            android:excludeFromRecents="true"
+            android:exported="true"
+            android:finishOnTaskLaunch="true"
+            android:launchMode="singleTask"
+            android:noHistory="true"
+            android:taskAffinity="com.quicklock.app.lock"
+            android:theme="@style/Theme.QuickLock.Lock">
+
+            <!-- No CATEGORY_LAUNCHER on purpose: this activity must not appear in
+                 the app drawer. ACTION_MAIN is declared so launcher shortcuts can
+                 target it directly. -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+        <!--
+            The one-tap lock icon. This alias is what the user drags into the Dock:
+            it is a real launcher icon, so every launcher (including HyperOS) treats it
+            exactly like an app icon - it can be placed on the Home screen or the Dock.
+        -->
+        <activity-alias
+            android:name=".LockShortcutAlias"
+            android:enabled="true"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_round"
+            android:targetActivity=".LockActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <!--
+            Screen-lock only accessibility service. It declares no event types and
+            never retrieves window content.
+        -->
+        <service
+            android:name=".accessibility.LockAccessibilityService"
+            android:exported="true"
+            android:label="@string/accessibility_service_label"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
+        </service>
+    </application>
+
+</manifest>

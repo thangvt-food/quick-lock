@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">QuickLock</string>
+    <string name="app_name_settings">Cài đặt QuickLock</string>
+    <string name="tagline">Chạm một lần. Khóa ngay.</string>
+
+    <string name="status_accessibility">Dịch vụ trợ năng</string>
+    <string name="status_shortcut">Biểu tượng khóa</string>
+    <string name="status_enabled">Đã bật</string>
+    <string name="status_disabled">Chưa bật</string>
+    <string name="status_ready">Sẵn sàng</string>
+    <string name="status_needs_accessibility">Cần bật trợ năng</string>
+
+    <string name="action_open_settings">Bật trợ năng</string>
+    <string name="action_review_permission">Cài đặt trợ năng</string>
+    <string name="action_add_shortcut">Thêm biểu tượng khóa ra màn hình chính</string>
+
+    <string name="how_to_title">Cách dùng</string>
+    <string name="how_to_step_1_pin">1. Chạm “Thêm biểu tượng khóa” ở trên, hoặc nhấn giữ biểu tượng QuickLock trong ngăn ứng dụng rồi chọn “Thêm vào màn hình chính”.</string>
+    <string name="how_to_step_1_drawer">1. Nhấn giữ biểu tượng QuickLock trong ngăn ứng dụng rồi chọn “Thêm vào màn hình chính”.</string>
+    <string name="how_to_step_2">2. Kéo biểu tượng vào Dock, hoặc bất kỳ đâu trên màn hình chính.</string>
+    <string name="how_to_step_3">3. Chạm một lần — màn hình khóa ngay. Ứng dụng không mở lên.</string>
+    <string name="how_to_step_4">4. Đường dẫn cấp quyền trên HyperOS: Settings → Additional settings → Accessibility → Downloaded apps → QuickLock.</string>
+
+    <string name="privacy_note">Không có quyền Internet. Không quảng cáo, không analytics, không theo dõi.</string>
+    <string name="footer">v%1$s · Ngoại tuyến · Không theo dõi</string>
+
+    <string name="shortcut_long_label">Khóa màn hình</string>
+    <string name="lock_unavailable">QuickLock cần dịch vụ trợ năng. Hãy bật một lần trong cài đặt.</string>
+    <string name="pin_not_supported">Launcher này không hỗ trợ ghim phím tắt. Hãy kéo biểu tượng QuickLock từ ngăn ứng dụng ra màn hình chính.</string>
+
+    <string name="accessibility_service_label">QuickLock – khóa màn hình</string>
+    <string name="accessibility_service_description">Cho phép QuickLock tắt và khóa màn hình khi bạn chạm biểu tượng QuickLock. Ứng dụng không đọc nội dung màn hình, văn bản hay sự kiện nhập liệu.</string>
+</resources>

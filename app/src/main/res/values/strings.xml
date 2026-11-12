@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">QuickLock</string>
+    <string name="app_name_settings">QuickLock Settings</string>
+    <string name="tagline">One tap. Screen locked.</string>
+
+    <string name="status_accessibility">Accessibility service</string>
+    <string name="status_shortcut">Lock shortcut</string>
+    <string name="status_enabled">Enabled</string>
+    <string name="status_disabled">Disabled</string>
+    <string name="status_ready">Ready</string>
+    <string name="status_needs_accessibility">Needs accessibility</string>
+
+    <string name="action_open_settings">Enable accessibility</string>
+    <string name="action_review_permission">Accessibility settings</string>
+    <string name="action_add_shortcut">Add lock shortcut to Home screen</string>
+
+    <string name="how_to_title">How to use</string>
+    <string name="how_to_step_1_pin">1. Tap “Add lock shortcut” above, or long-press the QuickLock lock icon in the app drawer and choose “Add to Home screen”.</string>
+    <string name="how_to_step_1_drawer">1. Long-press the QuickLock lock icon in the app drawer and choose “Add to Home screen”.</string>
+    <string name="how_to_step_2">2. Drag the icon into the Dock, or anywhere on the Home screen.</string>
+    <string name="how_to_step_3">3. Tap it once — the screen locks immediately. The app does not open.</string>
+    <string name="how_to_step_4">4. HyperOS path for the permission: Settings → Additional settings → Accessibility → Downloaded apps → QuickLock.</string>
+
+    <string name="privacy_note">No internet permission. No ads, no analytics, no tracking.</string>
+    <string name="footer">v%1$s · Offline · No tracking</string>
+
+    <string name="shortcut_long_label">Lock the screen</string>
+    <string name="lock_unavailable">QuickLock needs its accessibility service. Enable it once in settings.</string>
+    <string name="pin_not_supported">This launcher cannot pin shortcuts. Drag the QuickLock lock icon from the app drawer instead.</string>
+
+    <string name="accessibility_service_label">QuickLock – lock screen</string>
+    <string name="accessibility_service_description">Lets QuickLock turn the screen off and lock it when you tap the QuickLock icon. It does not read screen content, text or input events.</string>
+</resources>

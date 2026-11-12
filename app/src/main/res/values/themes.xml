@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.QuickLock" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/surface_light</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <!--
+        Zero-UI theme for LockActivity: transparent, no dim, no animation, no
+        starting-window preview. Combined with finishAndRemoveTask() the user is
+        expected to see the screen turn off, not the app opening.
+    -->
+    <style name="Theme.QuickLock.Lock" parent="android:Theme.Translucent.NoTitleBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+    </style>
+
+</resources>

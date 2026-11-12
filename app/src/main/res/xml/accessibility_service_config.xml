@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Minimal capability declaration.
+
+    - No android:accessibilityEventTypes: the service subscribes to no events.
+      LockAccessibilityService.onServiceConnected() also forces eventTypes = 0 at
+      runtime with setServiceInfo(), so the final state is "zero events" even if a
+      platform default were applied while parsing this file.
+    - canRetrieveWindowContent = false, canPerformGestures = false: the service
+      cannot read the screen and cannot inject gestures.
+    - flagDefault only: no FLAG_RETRIEVE_INTERACTIVE_WINDOWS, no request to
+      observe foreground app usage or accessibility shortcuts.
+-->
+<accessibility-service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:accessibilityFeedbackType="feedbackGeneric"
+    android:accessibilityFlags="flagDefault"
+    android:canPerformGestures="false"
+    android:canRetrieveWindowContent="false"
+    android:description="@string/accessibility_service_description"
+    android:settingsActivity="com.quicklock.app.MainActivity" />

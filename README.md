@@ -1,5 +1,7 @@
 # QuickLock
 
+<img src="assets/quicklock-512.png" width="96" alt="QuickLock icon" align="right" />
+
 [![Android CI](https://github.com/thangvt-food/quick-lock/actions/workflows/build.yml/badge.svg)](https://github.com/thangvt-food/quick-lock/actions/workflows/build.yml)
 
 Chạm **một lần** vào biểu tượng ổ khóa trên Home Screen hoặc Dock → màn hình khóa ngay.
@@ -10,8 +12,8 @@ Không root, không Device Administrator, không Shizuku, không Internet, khôn
 | Package | `com.quicklock.app` |
 | Ngôn ngữ | Kotlin, Jetpack Compose |
 | minSdk / targetSdk / compileSdk | 26 / 35 / 35 |
-| Quyền khai báo | **không có quyền nào** |
-| Kích thước APK debug | ~2–3 MB |
+| Quyền khai báo | **không có quyền hệ thống nào** (xem mục 6) |
+| Kích thước APK debug | ~8,0 MB (chưa minify) |
 
 ---
 
@@ -92,12 +94,14 @@ export ANDROID_HOME=$HOME/Android/Sdk   # hoặc đường dẫn SDK của bạn
 Trên GitHub: push lên `main` (hoặc bấm *Run workflow*) là CI build + audit + upload APK.
 Push tag `v*` sẽ tạo Release kèm APK.
 
-CI thực hiện thêm bước `scripts/verify-apk.sh`, script này **fail build** nếu:
+CI thực hiện thêm bước `./gradlew lintDebug` (lint là **blocking**, 0 error) và
+`scripts/verify-apk.sh`, script này **fail build** nếu:
 * package name / minSdk / targetSdk không đúng,
-* APK khai báo **bất kỳ** `<uses-permission>` nào (danh sách cho phép là rỗng),
+* APK khai báo quyền nào ngoài quyền tự định nghĩa mức signature nêu ở mục 6,
 * manifest thiếu `MainActivity`, `LockActivity`, `LockShortcutAlias`,
   `LockAccessibilityService` hoặc `BIND_ACCESSIBILITY_SERVICE`,
-* accessibility config khai báo event type / quyền đọc nội dung cửa sổ,
+* accessibility config khai báo event type / quyền đọc nội dung cửa sổ / gesture,
+* còn sót `androidx.profileinstaller.ProfileInstallReceiver` (đã bị strip),
 * chữ ký APK không hợp lệ.
 
 ---
@@ -136,11 +140,24 @@ Chi tiết + xử lý sự cố: [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md).
 
 ## 6. Quyền ứng dụng
 
-**Không có.** APK không khai báo bất kỳ `<uses-permission>` nào:
+**Không có quyền hệ thống nào.** `AndroidManifest.xml` của dự án không khai báo một
+`<uses-permission>` nào. Sau khi merge manifest, chỉ còn đúng **một quyền tự định nghĩa**
+do `androidx.core` tự thêm vào:
 
-| Quyền | Có? |
+```xml
+<permission
+    android:name="com.quicklock.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+    android:protectionLevel="signature" />
+```
+
+Quyền này do chính QuickLock sở hữu, mức `signature` (chỉ app cùng chữ ký mới có),
+dùng để chặn app khác gửi broadcast nội bộ vào các thành phần của AndroidX. Nó
+**không** cấp quyền truy cập dữ liệu, mạng, danh bạ hay ứng dụng khác.
+CI fail build nếu xuất hiện bất kỳ quyền nào khác, hoặc nếu quyền này không ở mức signature.
+
+| Quyền hệ thống | Có? |
 | --- | --- |
-| `INTERNET` | Không |
+| `INTERNET` / `ACCESS_NETWORK_STATE` | Không |
 | `READ_SMS`, `READ_CONTACTS`, `READ_CALL_LOG` | Không |
 | `QUERY_ALL_PACKAGES` | Không |
 | `SYSTEM_ALERT_WINDOW` | Không |

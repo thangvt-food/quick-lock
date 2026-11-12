@@ -97,6 +97,11 @@ printf '%s\n' "$TREE" | grep -A12 -F "LockShortcutAlias" | grep -qF "android.int
   || fail "LockShortcutAlias is not a launcher entry"
 ok "lock alias is a real launcher icon (Home screen + Dock)"
 
+if printf '%s' "$TREE" | grep -qF "ProfileInstallReceiver"; then
+  fail "AndroidX profileinstaller receiver was not stripped"
+fi
+ok "no AndroidX profileinstaller receiver"
+
 # The accessibility config must not request event types or window content.
 CONFIG_TREE="$("$AAPT2" dump xmltree --file res/xml/accessibility_service_config.xml "$APK")"
 if printf '%s' "$CONFIG_TREE" | grep -qF "accessibilityEventTypes"; then

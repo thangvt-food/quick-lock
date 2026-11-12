@@ -21,6 +21,7 @@
     <string name="how_to_step_2">2. Kéo biểu tượng vào Dock, hoặc bất kỳ đâu trên màn hình chính.</string>
     <string name="how_to_step_3">3. Chạm một lần — màn hình khóa ngay. Ứng dụng không mở lên.</string>
     <string name="how_to_step_4">4. Đường dẫn cấp quyền trên HyperOS: Settings → Additional settings → Accessibility → Downloaded apps → QuickLock.</string>
+    <string name="how_to_step_5">Nếu công tắc QuickLock bị mờ: mở Thông tin ứng dụng → ⋮ → “Cho phép cài đặt bị hạn chế” (yêu cầu từ Android 13 với ứng dụng cài ngoài Play Store), rồi thử lại.</string>
 
     <string name="privacy_note">Không có quyền Internet. Không quảng cáo, không analytics, không theo dõi.</string>
     <string name="footer">v%1$s · Ngoại tuyến · Không theo dõi</string>

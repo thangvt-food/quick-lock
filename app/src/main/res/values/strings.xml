@@ -21,6 +21,7 @@
     <string name="how_to_step_2">2. Drag the icon into the Dock, or anywhere on the Home screen.</string>
     <string name="how_to_step_3">3. Tap it once — the screen locks immediately. The app does not open.</string>
     <string name="how_to_step_4">4. HyperOS path for the permission: Settings → Additional settings → Accessibility → Downloaded apps → QuickLock.</string>
+    <string name="how_to_step_5">If the QuickLock switch is greyed out: open App info → ⋮ → “Allow restricted settings” (Android 13+ requirement for apps installed outside the Play Store), then try again.</string>
 
     <string name="privacy_note">No internet permission. No ads, no analytics, no tracking.</string>
     <string name="footer">v%1$s · Offline · No tracking</string>

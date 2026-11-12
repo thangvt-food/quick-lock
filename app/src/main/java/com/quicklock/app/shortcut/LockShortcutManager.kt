@@ -29,7 +29,7 @@ object LockShortcutManager {
     /** Asks the launcher to pin the one-tap lock shortcut. */
     fun requestPin(context: Context): Boolean {
         val manager = context.getSystemService(ShortcutManager::class.java) ?: return false
-        if (!manager.isPinRequestSupported) return false
+        if (!manager.isRequestPinShortcutSupported) return false
         return manager.requestPinShortcut(buildShortcut(context), null)
     }
 

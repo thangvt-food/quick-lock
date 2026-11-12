@@ -1,10 +1,10 @@
 package com.quicklock.app.permissions
 
 import android.accessibilityservice.AccessibilityServiceInfo
+import android.content.ActivityNotFoundException
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.provider.Settings
 import android.view.accessibility.AccessibilityManager
 import com.quicklock.app.accessibility.LockAccessibilityService
@@ -31,22 +31,20 @@ object AccessibilityPermissionManager {
     }
 
     /**
-     * Opens the accessibility page for QuickLock, falling back to the generic
-     * accessibility settings screen on ROMs that ignore the details intent.
+     * Opens the system accessibility screen, where QuickLock is listed under
+     * "Downloaded apps". Falls back to the root Settings screen on ROMs that do not
+     * export the accessibility page.
      */
     fun openSettings(context: Context) {
-        val details = Intent(Settings.ACTION_ACCESSIBILITY_DETAILS_SETTINGS).apply {
-            data = Uri.fromParts("package", context.packageName, null)
-            putExtra(Intent.EXTRA_COMPONENT_NAME, serviceComponent(context))
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        }
-        val fallback = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
-            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         try {
-            context.startActivity(details)
-        } catch (_: RuntimeException) {
-            // OEM settings apps may not export the details screen.
-            context.startActivity(fallback)
+            context.startActivity(
+                Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+            )
+        } catch (_: ActivityNotFoundException) {
+            context.startActivity(
+                Intent(Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+            )
         }
     }
 }

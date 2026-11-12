@@ -231,6 +231,7 @@ private fun HowToCard(pinShortcutSupported: Boolean) {
             Instruction(R.string.how_to_step_2)
             Instruction(R.string.how_to_step_3)
             Instruction(R.string.how_to_step_4)
+            Instruction(R.string.how_to_step_5)
         }
     }
 }
